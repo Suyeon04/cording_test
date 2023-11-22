@@ -1,21 +1,15 @@
 function solution(babbling) {
     var answer = 0;
     const wording = ["aya", "ye", "woo", "ma" ];
-    const wordingLength = [];
-    
-    wording.forEach((data)=>{
-        if(!wordingLength.includes(data.length)){
-            wordingLength.push(data.length)
-        }
-    })
+    const wordingLength = new Set([...wording].map((word)=>word.length));
 
     babbling.forEach((data)=>{
         let isBabbling = false;
         let plus = 0;
         for(let i = 0; i<data.length; i+=plus){
-            for(let j = 0; j<wordingLength.length; j++){
-                if(wording.includes(data.slice(i, i+wordingLength[j]))){
-                    plus = wordingLength[j];
+            for(const length of wordingLength){
+                if(wording.includes(data.slice(i, i+length))){
+                    plus = length;
                     isBabbling = true;
                     break;
                 }else{
