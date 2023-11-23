@@ -11,6 +11,7 @@ function solution(babbling) {
                 if(wording.includes(data.slice(i, i+length))){
                     plus = length;
                     isBabbling = true;
+                    console.log("1234")
                     break;
                 }else{
                     isBabbling = false;
