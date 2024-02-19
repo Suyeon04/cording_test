@@ -1,75 +1,48 @@
 function solution(park, routes) {
-    for (let i = 0; i < park.length; i++) {
-        park[i] = park[i].split("");
-    }
-    var answer = park[0].indexOf("S");
-    answer = [0, answer];
-    for (let i = 0; i < routes.length; i++) {
-        const data = routes[i].split(" ");
-        data[1] = Number(data[1]);
-        let isGoing = true;
+    const splitPark = park.map(row => row.split(""));
+    let answer = [0, 0];
 
-        let a = 0;
-        let b = 0;
-
-        if (data[0] == "N" || data[0] == "S") {
-            b = answer[0];
-        } else {
-            b = answer[1];
+    for (let i = 0; i < splitPark.length; i++) {
+        const startIndex = splitPark[i].indexOf("S");
+        if (startIndex !== -1) {
+            answer = [i, startIndex];
+            break;
         }
+    }
 
-        for (let j = b; a <= data[1] && b < park.length && b >= 0; a++) {
-            if (data[0] == "E" && park[answer[0]][j] == 'O') {
-                j++;
+    for (let i = 0; i < routes.length; i++) {
+        const [direction, rowRoutes] = routes[i].split(" ");
+        let isGoing = true;
+        let newRow = answer[0];
+        let newCol = answer[1];
+
+        for (let j = 0; j < rowRoutes; j++) {
+            if (direction == "E") {
+                newCol++;
+            } else if (direction == "W") {
+                newCol--;
+            } else if (direction == "N") {
+                newRow--;
+            } else if (direction == "S") {
+                newRow++;
             }
-            else if (data[0] == "N" && park[j][answer[1]] == 'O') {
-                j--;
-            }
-            else if (data[0] == "W" && park[answer[0]][j] == 'O') {
-                j++
-            } else if (data[0] == "S" && park[j][answer[1]] == 'O') {
-                j--;
-            } else {
+
+            if (
+                newRow < 0 ||
+                newRow >= splitPark.length ||
+                newCol < 0 ||
+                newCol >= splitPark[0].length ||
+                splitPark[newRow][newCol] == "X"
+            ) {
                 isGoing = false;
                 break;
             }
         }
 
         if (isGoing) {
-            if (data[0] == "E") {
-                answer[1] = Number(data[1]) + Number(answer[1]);
-                j++;
-            }
-            else if (data[0] == "N") {
-                answer[0] = Number(answer[0]) - Number(data[1])
-                j--;
-            }
-            else if (data[0] == "W") {
-                answer[1] = Number(answer[1]) - Number(data[1]);
-                j++
-            } else if (data[0] == "S") {
-                answer[0] = Number(answer[0]) + Number(data[1])
-                j--;
-            }
+            answer = [newRow, newCol];
         }
-
-        console.log(answer)
     }
+
     return answer;
 }
-
-
-// park를
-
-// [["S","O","O"],["O","O","O"],["O","O","O"]]
-
-// // E -> 2
-// [0,0]
-// [0, 2] -> ok
-// // S -> 2
-// [2.0]
-// [2, 2] -> ok
-// // W -> 1
-// [2, 1] 
-
-
