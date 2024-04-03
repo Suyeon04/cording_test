@@ -1,10 +1,12 @@
 function solution(n, words) {
-    let answer = [];
-    for (let i = 1; i < words.length; i++) {
-        const index = words.indexOf(words[i]);
-        if (index != i || words[i].charAt(0) != words[i - 1].charAt(words[i - 1].length - 1)) {
-            return [parseInt(i % n + 1), parseInt(i / n + 1)]
-        }
+    let lastWordOfPrevWord = words[0].slice(-1);
+    for(let i= 1; i< words.length; i++){
+        const currentWord = words[i];
+        const firstWordIndex = words.indexOf(currentWord);
+        if(firstWordIndex!=i || currentWord.charAt(0) != lastWordOfPrevWord){
+           return[(i%n)+1, parseInt(i/n+1)]
+       }
+        lastWordOfPrevWord =  currentWord.slice(-1);
     }
-    return [0, 0];
+    return 	[0, 0];
 }
