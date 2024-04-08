@@ -1,14 +1,15 @@
 function solution(s) {
-    let data = [];
-    const sSplit = s.split("");
-    for (let i = 0; i < sSplit.length; i++) {
-        if (sSplit[i] == '(') {
-            data.push(`(`)
+    let stackParentheses = [];
+    for(let i of s){
+         if (i== '(') {
+            stackParentheses.push('(');
         } else {
-            if (!data.pop()) {
+            if (stackParentheses.length == 0) {
                 return false;
+            } else {
+                stackParentheses.pop()
             }
         }
     }
-    return data.length == 0;
+    return stackParentheses.length == 0;
 }
