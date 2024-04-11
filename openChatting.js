@@ -1,25 +1,21 @@
 function solution(record) {
-    var answer = [];
-    // 1. id : 닉네임 형태의 object를 만든다
-    // 2. for문을 돌려서 enter, Leave의 데이터를 push한다
-    const splitRecord = record.map(n => n.split(" "));
-    let nicknames = [];
-    for (let i = splitRecord.length - 1; i >= 0; i--) {
-        const id = splitRecord[i][1];
-        const act = splitRecord[i][0];
-        let nick = "";
-        if (splitRecord[i].length === 3 && !nicknames.find(n => n.id == id)) {
-            nick = splitRecord[i][2];
-            nicknames.push({ id, nick });
-        } else {
-            nick = nicknames.find(n => n.id == id).nick;
+    const nicknamesObj = {};
+    const actionsArray = [];
+    for (let data of record) {
+        const [action, id, nick] = data.split(" ");
+        if (action == "Enter" || action == "Leave") {
+            actionsArray.push({ action, id });
         }
-        if (act == "Enter") {
-            answer.push(`${nick}님이 들어왔습니다.`)
-        } else if (act == "Leave") {
-            answer.push(`${nick}님이 나갔습니다.`)
+        if (action == "Enter" || action == "Change") {
+            nicknamesObj[id] = nick;
         }
     }
-    answer = answer.reverse();
+    const answer = actionsArray.map(({ action, id }) => {
+        if (action == "Enter") {
+            return `${nicknamesObj[id]}님이 들어왔습니다.`;
+        } else {
+            return `${nicknamesObj[id]}님이 나갔습니다.`;
+        }
+    })
     return answer;
 }
