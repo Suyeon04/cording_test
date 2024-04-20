@@ -1,6 +1,9 @@
 function solution(num, total) {
-    let answer = new Array(num).fill(0);
-    const middleNum = Math.floor(total / num);
-    const remainNum = total % num;
-    for (let i = middleNum /; i <)
+    let answer = [];
+    let inputNum = Math.floor(total / num) - Math.floor(num/2) + (num%2==0? 1: 0);
+    for(let i = 0; i<num; i++){
+        answer.push(inputNum);
+        inputNum++;
+    }
+    return answer;
 }
