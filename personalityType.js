@@ -16,3 +16,4 @@ function solution(survey, choices) {
     (scoreData["A"] < scoreData["N"] ? "N" : "A");
   return answer;
 }
+
