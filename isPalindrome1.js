@@ -8,11 +8,5 @@ function solution(s) {
     }
     word = s[i];
   }
-  // for(let data of s){
-  //     if(data!=word){
-  //         word = data;
-  //         result.push(data)
-  //     }
-  // }
   return result.join("");
 }
