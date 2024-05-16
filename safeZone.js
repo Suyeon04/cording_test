@@ -5,13 +5,13 @@ function solution(board) {
     for (let j = 0; j < board.length; j++) {
       if (board[i][j] == 1) {
       } else if (i != 0 && board[i - 1][j] == 1) {
-      } else if (j != 0 && j == len && board[i][j - 1] == 1) {
+      } else if (j != 0 && board[i][j - 1] == 1) {
       } else if (i != 0 && j != 0 && board[i - 1][j - 1] == 1) {
-      } else if (board[i + 1][j] == 1) {
-      } else if (board[i][j + 1] == 1) {
-      } else if (board[i + 1][j + 1] == 1) {
-      } else if (i != 0 && board[i - 1][j + 1] == 1) {
-      } else if (j != 0 && board[i + 1][j - 1] == 1) {
+      } else if (i == len && board[i + 1][j] == 1) {
+      } else if (j == len && board[i][j + 1] == 1) {
+      } else if (i == len && j == len && board[i + 1][j + 1] == 1) {
+      } else if (i != 0 && j == len && board[i - 1][j + 1] == 1) {
+      } else if (j != 0 && i == len && board[i + 1][j - 1] == 1) {
       } else {
         answer++;
       }
